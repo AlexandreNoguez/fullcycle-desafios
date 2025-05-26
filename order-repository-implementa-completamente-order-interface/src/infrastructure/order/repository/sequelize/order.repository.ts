@@ -25,29 +25,6 @@ export default class OrderRepository implements OrderRepositoryInterface {
     );
   }
 
-  async update(entity: Order): Promise<void> {
-    // Atualiza o pedido e seus itens
-    await OrderModel.update(
-      {
-        customer_id: entity.customerId,
-        total: entity.total(),
-      },
-      { where: { id: entity.id } }
-    );
-    // Remove itens antigos e adiciona os novos
-    await OrderItemModel.destroy({ where: { order_id: entity.id } });
-    for (const item of entity.items) {
-      await OrderItemModel.create({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        product_id: item.productId,
-        quantity: item.quantity,
-        order_id: entity.id,
-      });
-    }
-  }
-
   async find(id: string): Promise<Order> {
     const orderModel = await OrderModel.findOne({
       where: { id },
@@ -82,5 +59,26 @@ export default class OrderRepository implements OrderRepositoryInterface {
       );
       return new Order(orderModel.id, orderModel.customer_id, items);
     });
+  }
+
+  async update(entity: Order): Promise<void> {
+    await OrderModel.update(
+      {
+        customer_id: entity.customerId,
+        total: entity.total(),
+      },
+      { where: { id: entity.id } }
+    );
+    await OrderItemModel.destroy({ where: { order_id: entity.id } });
+    for (const item of entity.items) {
+      await OrderItemModel.create({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        product_id: item.productId,
+        quantity: item.quantity,
+        order_id: entity.id,
+      });
+    }
   }
 }

@@ -1,11 +1,11 @@
 import Customer from "../../customer/entity/customer";
 import Address from "../../customer/value-object/address";
-import CustomerCreatedEvent from "../customer/customer-created.events";
-import ShowConsoleAgainWhenCustomerIsCreatedHandler from "../customer/handler/show-console-again.handler";
-import ShowConsoleWhenCustomerIsCreatedHandler from "../customer/handler/show-console.handler";
-import UpdateCustomerData from "../customer/handler/update-customer-data.handler";
-import SendEmailWhenProductIsCreatedHandler from "../product/handler/send-email-when-product-is-created.handler";
-import ProductCreatedEvent from "../product/product-created.event";
+import CustomerCreatedEvent from "../../customer/event/customer-created.events";
+import ShowConsoleAgainWhenCustomerIsCreatedHandler from "../../customer/event/handler/show-console-again.handler";
+import ShowConsoleWhenCustomerIsCreatedHandler from "../../customer/event/handler/show-console.handler";
+import UpdateCustomerData from "../../customer/event/handler/update-customer-data.handler";
+import SendEmailWhenProductIsCreatedHandler from "../../product/event/handler/send-email-when-product-is-created.handler";
+import ProductCreatedEvent from "../../product/event/product-created.event";
 import EventDispatcher from "./event-dispatcher";
 
 describe("Domain event dispatcher tests", () => {
